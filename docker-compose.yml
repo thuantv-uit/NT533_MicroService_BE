@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongodb/mongodb-community-server:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+
+  shopping_microservice:
+    image: shopping_microservice:v2
+    container_name: shopping_microservice
+    ports:
+      - "3003:3003"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/shopping_db
+    networks:
+      - app-network
+
+  dashboard_microservice:
+    image: dashboard_microservice:v2
+    container_name: dashboard_microservice
+    ports:
+      - "3002:3002"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/dashboard_db
+    networks:
+      - app-network
+
+  user_microservice:
+    image: user_microservice:v2
+    container_name: user_microservice
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/user_db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
