@@ -53,8 +53,8 @@ Follow these steps to set up and run the project locally:
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/<your-username>/<repository-name>.git
-   cd <repository-name>
+   git clone https://github.com/thuantv-uit/NT533_MicroService_BE.git
+   NT533_MicroService_BE
    ```
 
 2. **Install dependencies**:
