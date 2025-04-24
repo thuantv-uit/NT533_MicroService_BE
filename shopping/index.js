@@ -6,11 +6,12 @@ const Cart = require('./model/shopping');
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/shopping_db')
-  .then(() => console.log('Connected to MongoDB'));
+mongoose.connect('mongodb+srv://quantc:31012004@nt548-devops.68ujgah.mongodb.net/NT533?retryWrites=true&w=majority')
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 app.get('/shopping/cart', async (req, res) => {
   const cartItems = await Cart.find();
